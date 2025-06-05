@@ -17,3 +17,52 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Electron build files
+electron-app/dist/
+electron-app/node_modules/
+*.exe
+
+# Database files
+*.sql
+*.sqlite
+*.sqlite3
+
+# Laravel files
+/vendor/
+/node_modules/
+/public/hot
+/public/storage
+/storage/*.key
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/.idea
+/.vscode
+
+# Media files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+*.mov
+*.avi
+
+# Documents
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+
+# Archives
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
