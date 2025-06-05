@@ -63,10 +63,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        // Tạo customer liên kết
+        \App\Models\Customer::create([
+            'user_id' => $user->id,
+            'email' => $user->email,
+            'password_hash' => $user->password,
+            'status' => 'active',
+        ]);
+        return $user;
     }
 }

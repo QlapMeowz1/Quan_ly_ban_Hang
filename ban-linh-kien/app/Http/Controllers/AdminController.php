@@ -31,7 +31,7 @@ class AdminController extends Controller
         $admin = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'password' => bcrypt($validated['password']),
+            'password' => $validated['password'],
             'role' => 'admin',
         ]);
         return redirect()->route('admins.index')->with('success', 'Tạo admin thành công!');
@@ -61,7 +61,7 @@ class AdminController extends Controller
         ]);
         $admin->update($validated);
         if ($request->filled('password')) {
-            $admin->password = bcrypt($request->password);
+            $admin->password = $request->password;
             $admin->save();
         }
         return redirect()->route('admins.index')->with('success', 'Cập nhật admin thành công!');
@@ -73,5 +73,28 @@ class AdminController extends Controller
         $admin = User::where('role', 'admin')->findOrFail($id);
         $admin->delete();
         return redirect()->route('admins.index')->with('success', 'Đã xóa admin!');
+    }
+
+    // Hiển thị danh sách user và tìm kiếm
+    public function users(Request $request)
+    {
+        $query = \App\Models\User::query();
+        if ($request->filled('keyword')) {
+            $keyword = $request->keyword;
+            $query->where(function($q) use ($keyword) {
+                $q->where('name', 'like', "%$keyword%")
+                  ->orWhere('email', 'like', "%$keyword%");
+            });
+        }
+        $users = $query->orderByDesc('created_at')->paginate(20);
+        return view('admins.users', compact('users'));
+    }
+
+    // Xem đơn hàng của 1 user
+    public function userOrders($userId)
+    {
+        $user = \App\Models\User::findOrFail($userId);
+        $orders = $user->customer ? $user->customer->orders()->orderByDesc('created_at')->get() : [];
+        return view('admins.user_orders', compact('user', 'orders'));
     }
 }
