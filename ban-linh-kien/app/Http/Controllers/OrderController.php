@@ -52,16 +52,6 @@ class OrderController extends Controller
         }
         $customerId = $customer->customer_id;
 
-        // Kiểm tra xác thực email và số điện thoại
-        if (!$customer->email_verified || !$customer->phone_verified) {
-            return view('orders.verify_checkout', [
-                'need_email_verify' => !$customer->email_verified,
-                'need_phone_verify' => !$customer->phone_verified,
-                'address' => $request->address,
-                'cart' => $cart
-            ]);
-        }
-
         $request->validate([
             'address' => 'required|string|max:255',
         ]);

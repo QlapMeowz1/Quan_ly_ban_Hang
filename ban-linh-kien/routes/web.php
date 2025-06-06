@@ -123,7 +123,4 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Quản lý người dùng
     Route::get('/users', [App\Http\Controllers\AdminController::class, 'users'])->name('users.index');
     Route::get('/users/{user}/orders', [App\Http\Controllers\AdminController::class, 'userOrders'])->name('users.orders');
-
-    // Route trang cài đặt admin
-    Route::get('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
 }); 

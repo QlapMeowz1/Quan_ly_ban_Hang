@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
+
 class ProfileController extends Controller
 {
     public function edit()
     {
-        $user = Auth::user();
-        return view('profile.edit', ['user' => $user]);
+        return view('profile.edit', ['user' => Auth::user()]);
     }
 
     public function update(Request $request)

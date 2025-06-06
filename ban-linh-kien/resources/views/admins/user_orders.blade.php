@@ -26,6 +26,6 @@
             @endforeach
         </tbody>
     </table>
-    <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Quay lại danh sách user</a>
+    <a href="{{ route('admin.users') }}" class="btn btn-secondary">Quay lại danh sách user</a>
 </div>
 @endsection 
