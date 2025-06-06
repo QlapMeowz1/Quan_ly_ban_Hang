@@ -16,12 +16,22 @@ class Product extends Model
         'min_stock_level', 'weight', 'dimensions', 'warranty_period', 'status',
         'featured'
     ];
+
+    /**
+     * Get the route key name for Laravel's Route Model Binding.
+     */
+    public function getRouteKeyName()
+    {
+        return 'product_id';
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'category_id');
     }
+
     public function images()
     {
-        return $this->hasMany(\App\Models\ProductImage::class, 'product_id', 'product_id');
+        return $this->hasMany(ProductImage::class, 'product_id', 'product_id');
     }
-}
+} 

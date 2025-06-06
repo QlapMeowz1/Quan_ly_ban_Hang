@@ -11,13 +11,29 @@ class Order extends Model
 
     protected $table = 'orders';
     protected $primaryKey = 'order_id';
+    
     protected $fillable = [
         'order_number', 'customer_id', 'order_status', 'payment_status', 'payment_method',
         'subtotal', 'shipping_fee', 'discount_amount', 'total_amount', 'coupon_id',
         'shipping_address', 'billing_address', 'notes'
     ];
 
-    public $timestamps = false;
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'order_date',
+        'payment_date',
+        'shipping_date',
+        'delivery_date'
+    ];
+
+    /**
+     * Get the route key name for Laravel's Route Model Binding.
+     */
+    public function getRouteKeyName()
+    {
+        return 'order_id';
+    }
 
     public function customer()
     {
@@ -32,14 +48,25 @@ class Order extends Model
     public function getStatusLabelAttribute()
     {
         $map = [
-            'pending' => 'Đã đặt',
-            'confirmed' => 'Đã lên đơn',
-            'processing' => 'Đã lên đơn',
+            'pending' => 'Chờ xử lý',
+            'confirmed' => 'Đã xác nhận',
+            'processing' => 'Đang xử lý',
             'shipping' => 'Đang vận chuyển',
-            'delivered' => 'Đã giao',
+            'delivered' => 'Đã giao hàng',
             'cancelled' => 'Đã hủy',
             'returned' => 'Đã trả hàng',
         ];
         return $map[$this->order_status] ?? $this->order_status;
+    }
+
+    public function getPaymentStatusLabelAttribute()
+    {
+        $map = [
+            'pending' => 'Chưa thanh toán',
+            'paid' => 'Đã thanh toán',
+            'refunded' => 'Đã hoàn tiền',
+            'failed' => 'Thanh toán thất bại',
+        ];
+        return $map[$this->payment_status] ?? $this->payment_status;
     }
 }

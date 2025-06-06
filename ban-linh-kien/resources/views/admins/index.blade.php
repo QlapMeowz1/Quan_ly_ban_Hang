@@ -1,38 +1,82 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2>Danh sách admin</h2>
-    <a href="{{ route('admins.create') }}" class="btn btn-primary mb-3">Thêm admin mới</a>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên</th>
-                <th>Email</th>
-                <th>Ngày tạo</th>
-                <th>Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($admins as $admin)
-            <tr>
-                <td>{{ $admin->id }}</td>
-                <td>{{ $admin->name }}</td>
-                <td>{{ $admin->email }}</td>
-                <td>{{ $admin->created_at }}</td>
-                <td>
-                    <a href="{{ route('admins.show', $admin->id) }}" class="btn btn-info btn-sm">Xem</a>
-                    <a href="{{ route('admins.edit', $admin->id) }}" class="btn btn-warning btn-sm">Sửa</a>
-                    <form action="{{ route('admins.destroy', $admin->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<div class="container-fluid">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h5 class="mb-0">Quản lý Admin</h5>
+                </div>
+                <div class="col-auto">
+                    <a href="{{ route('admin.admins.create') }}" class="btn btn-primary">
+                        <i class="bi bi-plus"></i> Thêm Admin
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>Ngày tạo</th>
+                            <th style="width: 280px">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($admins as $admin)
+                        <tr>
+                            <td>{{ $admin->id }}</td>
+                            <td>{{ $admin->name }}</td>
+                            <td>{{ $admin->email }}</td>
+                            <td>{{ $admin->created_at ? $admin->created_at->format('d/m/Y H:i') : 'N/A' }}</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a href="{{ route('admin.admins.show', $admin->id) }}" 
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> Chi tiết
+                                    </a>
+                                    <a href="{{ route('admin.admins.edit', $admin->id) }}" 
+                                       class="btn btn-sm btn-outline-warning">
+                                        <i class="bi bi-pencil"></i> Sửa
+                                    </a>
+                                    @if(auth()->id() !== $admin->id)
+                                    <form action="{{ route('admin.admins.destroy', $admin->id) }}" 
+                                          method="POST" 
+                                          class="d-inline"
+                                          onsubmit="return confirm('Bạn có chắc chắn muốn xóa admin này?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
+                                                class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i> Xóa
+                                        </button>
+                                    </form>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="text-center">Không có admin nào</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection 

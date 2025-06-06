@@ -55,8 +55,8 @@
                     <li class="nav-item"><a class="nav-link text-white" href="/cart"><i class="bi bi-cart"></i> Giỏ hàng</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="/categories"><i class="bi bi-grid"></i> Danh mục</a></li>
                     @if(Auth::check() && in_array(Auth::user()->role, ['admin', 'super_admin']))
-                        <li class="nav-item"><a class="nav-link text-warning" href="{{ route('admin.users') }}"><i class="bi bi-people"></i> Quản lý user</a></li>
-                        <li class="nav-item"><a class="nav-link text-warning" href="{{ route('admins.index') }}"><i class="bi bi-person-badge"></i> Quản lý admin</a></li>
+                        <li class="nav-item"><a class="nav-link text-warning" href="{{ route('admin.users.index') }}"><i class="bi bi-people"></i> Quản lý user</a></li>
+                        <li class="nav-item"><a class="nav-link text-warning" href="{{ route('admin.admins.index') }}"><i class="bi bi-person-badge"></i> Quản lý admin</a></li>
                     @endif
                     @guest
                         <li class="nav-item"><a class="nav-link text-white" href="{{ route('login') }}"><i class="bi bi-person"></i> Đăng nhập</a></li>

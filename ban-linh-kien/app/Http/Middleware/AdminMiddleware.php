@@ -15,9 +15,14 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && in_array(auth()->user()->role, ['admin', 'super_admin'])) {
-        return $next($request);
+        if (!auth()->check()) {
+            return redirect()->route('login');
         }
-        abort(403, 'Bạn không có quyền truy cập!');
+
+        if (!in_array(auth()->user()->role, ['admin', 'super_admin'])) {
+            abort(403, 'Bạn không có quyền truy cập trang này!');
+        }
+
+        return $next($request);
     }
 }

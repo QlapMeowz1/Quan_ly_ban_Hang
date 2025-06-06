@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -17,7 +21,10 @@ class OrderController extends Controller
         $user = auth()->user();
         $orders = [];
         if ($user && $user->customer) {
-            $orders = \App\Models\Order::where('customer_id', $user->customer->customer_id)->orderByDesc('order_date')->get();
+            $orders = Order::where('customer_id', $user->customer->customer_id)
+                ->orderByDesc('order_date')
+                ->with('orderItems.product')
+                ->get();
         }
         return view('orders.index', compact('orders'));
     }
@@ -26,16 +33,16 @@ class OrderController extends Controller
     {
         $cart = session('cart', []);
         if (empty($cart)) {
-            return redirect('/cart')->with('error', 'Giỏ hàng trống!');
+            return redirect()->route('cart.index')->with('error', 'Giỏ hàng trống!');
         }
 
         // Kiểm tra user và quan hệ customer
         $user = auth()->user();
         $customer = $user->customer;
         if (!$customer) {
-            $customer = \App\Models\Customer::where('email', $user->email)->first();
+            $customer = Customer::where('email', $user->email)->first();
             if (!$customer) {
-                $customer = \App\Models\Customer::create([
+                $customer = Customer::create([
                     'user_id' => $user->id,
                     'email' => $user->email,
                     'password_hash' => $user->password,
@@ -49,7 +56,7 @@ class OrderController extends Controller
             'address' => 'required|string|max:255',
         ]);
 
-        $order = \App\Models\Order::create([
+        $order = Order::create([
             'customer_id' => $customerId,
             'shipping_address' => $request->address,
             'order_number' => uniqid('ORD'),
@@ -60,11 +67,12 @@ class OrderController extends Controller
             'shipping_fee' => 0,
             'discount_amount' => 0,
             'total_amount' => 0,
+            'order_date' => Carbon::now(),
         ]);
 
         $total = 0;
         foreach ($cart as $productId => $quantity) {
-            $product = \App\Models\Product::find($productId);
+            $product = Product::find($productId);
             if ($product) {
                 $subtotal = $product->price * $quantity;
                 $order->orderItems()->create([
@@ -85,14 +93,19 @@ class OrderController extends Controller
 
         session()->forget('cart');
 
-        
         return redirect()->route('orders.index')
             ->with('success', 'Đặt hàng thành công! Bạn có thể kiểm tra trạng thái đơn hàng và lịch sử mua hàng tại đây.');
     }
 
-    public function show($id)
+    public function show(Order $order)
     {
-        $order = \App\Models\Order::with('orderItems')->findOrFail($id);
+        // Kiểm tra quyền xem đơn hàng
+        $user = auth()->user();
+        if (!$user->customer || $order->customer_id !== $user->customer->customer_id) {
+            abort(403, 'Bạn không có quyền xem đơn hàng này!');
+        }
+
+        $order->load('orderItems.product', 'customer');
         return view('orders.show', compact('order'));
     }
 }

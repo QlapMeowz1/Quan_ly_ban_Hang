@@ -2,8 +2,8 @@
 @section('content')
 <div class="container">
     <h2>Danh sách người dùng</h2>
-    <form method="GET" action="{{ route('admin.users') }}" class="mb-3">
-        <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Tìm tên hoặc email..." class="form-control d-inline-block" style="width:300px;">
+    <form method="GET" action="{{ route('admin.users.index') }}" class="mb-3">
+        <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Tìm tên hoặc email..." class="form-control">
         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
     </form>
     <table class="table table-bordered">
@@ -24,7 +24,7 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->created_at }}</td>
                 <td>
-                    <a href="{{ route('admin.user.orders', $user->id) }}" class="btn btn-info btn-sm">Xem đơn hàng</a>
+                    <a href="{{ route('admin.users.orders', $user->id) }}" class="btn btn-info btn-sm">Xem đơn hàng</a>
                 </td>
             </tr>
             @endforeach
