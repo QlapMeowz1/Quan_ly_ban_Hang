@@ -12,7 +12,7 @@ class Customer extends Model
     protected $primaryKey = 'customer_id';
     protected $fillable = [
         'username', 'email', 'password_hash', 'first_name', 'last_name', 'phone',
-        'date_of_birth', 'gender', 'status', 'email_verified', 'user_id'
+        'date_of_birth', 'gender', 'status', 'email_verified', 'phone_verified', 'user_id'
     ];
     public $timestamps = false;
 

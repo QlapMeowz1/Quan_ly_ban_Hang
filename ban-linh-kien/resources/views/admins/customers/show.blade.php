@@ -118,7 +118,7 @@
                             @forelse($customer->orders as $order)
                             <tr>
                                 <td>{{ $order->order_number }}</td>
-                                <td>{{ $order->order_date ? $order->order_date->format('d/m/Y H:i') : 'N/A' }}</td>
+                                <td>{{ $order->order_date ? \Carbon\Carbon::parse($order->order_date)->format('d/m/Y H:i') : 'N/A' }}</td>
                                 <td>{{ number_format($order->total_amount) }}đ</td>
                                 <td>
                                     @if($order->order_status === 'pending')
