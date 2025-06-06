@@ -82,8 +82,6 @@ npm run dev
 - 🐬 MySQL  
 - 🧬 Git  
 
-## 👥 Tác giả
-- 💻 [Tên của bạn]
 
 ## 📄 License
 - 📜 MIT License
