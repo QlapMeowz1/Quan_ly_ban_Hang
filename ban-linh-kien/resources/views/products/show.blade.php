@@ -5,7 +5,7 @@
 @section('content')
 @php
     $images = $product->images;
-    $mainImage = $images->first()->image_url ?? 'https://via.placeholder.com/500';
+    $mainImage = $images->first() ? asset('storage/' . $images->first()->image_url) : 'https://via.placeholder.com/500';
     $oldPrice = $product->cost_price ?? null;
     $discount = ($oldPrice && $oldPrice > $product->price) ? round(100 * ($oldPrice - $product->price) / $oldPrice) : 0;
     $specs = is_array($product->specifications) ? $product->specifications : (json_decode($product->specifications, true) ?? []);
@@ -35,10 +35,10 @@
             @if($images->count() > 1)
             <div class="d-flex gap-2 flex-wrap">
                 @foreach($images as $img)
-                    <img src="{{ $img->image_url }}" alt="thumb" 
+                    <img src="{{ asset('storage/' . $img->image_url) }}" alt="thumb" 
                         class="img-thumbnail" 
                         style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;"
-                        onclick="document.getElementById('mainProductImg').src='{{ $img->image_url }}'">
+                        onclick="document.getElementById('mainProductImg').src='{{ asset('storage/' . $img->image_url) }}'">
                 @endforeach
             </div>
             @endif
@@ -144,7 +144,7 @@
                 <div class="card h-100 product-card">
                     <div class="position-relative">
                         @if($related->images->isNotEmpty())
-                            <img src="{{ $related->images->first()->image_url }}" class="card-img-top" 
+                            <img src="{{ asset('storage/' . $related->images->first()->image_url) }}" class="card-img-top" 
                                 alt="{{ $related->product_name }}" style="height: 200px; object-fit: contain;">
                         @else
                             <img src="https://via.placeholder.com/200" class="card-img-top" 

@@ -20,7 +20,7 @@
             <div class="col-md-3 mb-4 animate__animated animate__zoomIn">
                 <div class="card h-100 shadow-sm border-0 transition">
                     @if($product->images->isNotEmpty())
-                        <img src="{{ $product->images->first()->image_url }}" class="card-img-top hover-zoom" alt="{{ $product->product_name }}" style="height: 200px; object-fit: contain;">
+                        <img src="{{ asset('storage/' . $product->images->first()->image_url) }}" class="card-img-top hover-zoom" alt="{{ $product->product_name }}" style="height: 200px; object-fit: contain;">
                     @else
                         <img src="https://via.placeholder.com/200" class="card-img-top hover-zoom" alt="{{ $product->product_name }}" style="height: 200px; object-fit: contain;">
                     @endif

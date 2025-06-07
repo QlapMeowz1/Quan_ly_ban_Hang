@@ -101,10 +101,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('admins', App\Http\Controllers\AdminController::class);
     
 
-    Route::resource('products', App\Http\Controllers\ProductController::class);
+    Route::resource('products', App\Http\Controllers\Admin\ProductController::class);
     
 
-    Route::resource('categories', App\Http\Controllers\CategoryController::class);
+    Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
     
 
     Route::resource('orders', App\Http\Controllers\OrderController::class);

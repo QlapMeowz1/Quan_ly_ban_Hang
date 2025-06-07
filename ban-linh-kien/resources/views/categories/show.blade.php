@@ -79,7 +79,7 @@
                         <div class="card h-100 product-card animate-fade-up">
                             <div class="position-relative">
                                 @if($product->images->isNotEmpty())
-                                    <img src="{{ $product->images->first()->image_url }}" 
+                                    <img src="{{ asset('storage/' . $product->images->first()->image_url) }}" 
                                          class="card-img-top" 
                                          alt="{{ $product->product_name }}" 
                                          style="height: 200px; object-fit: contain;">
