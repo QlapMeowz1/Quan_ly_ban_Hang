@@ -37,8 +37,8 @@
                                 @if($brand->brand_logo)
                                     <img src="{{ asset('storage/' . $brand->brand_logo) }}" 
                                          alt="{{ $brand->brand_name }}" 
-                                         class="img-thumbnail"
-                                         style="max-width: 100px; height: auto;">
+                                         class="img-thumbnail bg-white"
+                                         style="max-width: 100px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 8px;">
                                 @else
                                     <span class="text-muted">Chưa có logo</span>
                                 @endif
