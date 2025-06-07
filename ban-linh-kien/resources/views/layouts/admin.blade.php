@@ -203,11 +203,6 @@
                         <i class="fas fa-chart-bar"></i> Báo cáo
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('admin/settings*') ? 'active' : '' }}" href="{{ route('admin.settings.index') }}">
-                        <i class="fas fa-cog"></i> Cài đặt
-                    </a>
-                </li>
             </ul>
         </nav>
 
