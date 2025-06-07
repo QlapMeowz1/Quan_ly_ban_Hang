@@ -66,23 +66,18 @@ Route::post('/cart/remove', function (\Illuminate\Http\Request $request) {
     return redirect()->route('cart.index')->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
 })->name('cart.remove');
 
-// Authentication routes
 Auth::routes();
 
-// User authenticated routes
 Route::middleware('auth')->group(function () {
-    // Profile routes
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/password', [ProfileController::class, 'passwordForm'])->name('profile.password');
     Route::post('/profile/password', [ProfileController::class, 'changePassword'])->name('profile.password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Order routes for customers
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
-    // Checkout routes
     Route::get('/checkout', function () {
         $cart = session('cart', []);
         if (empty($cart)) {
@@ -95,32 +90,32 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
 });
 
-// Admin routes
+
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
     
-    // Customer management
+
     Route::resource('customers', App\Http\Controllers\Admin\CustomerController::class);
     
-    // Quản lý admin
+
     Route::resource('admins', App\Http\Controllers\AdminController::class);
     
-    // Quản lý sản phẩm
+
     Route::resource('products', App\Http\Controllers\ProductController::class);
     
-    // Quản lý danh mục
+
     Route::resource('categories', App\Http\Controllers\CategoryController::class);
     
-    // Quản lý đơn hàng
+
     Route::resource('orders', App\Http\Controllers\OrderController::class);
     
-    // Quản lý thương hiệu
+
     Route::resource('brands', App\Http\Controllers\BrandController::class);
     
-    // Báo cáo thống kê
+  
     Route::get('/reports', [App\Http\Controllers\ReportController::class, 'index'])->name('reports.index');
     
-    // Quản lý người dùng
+    
     Route::get('/users', [App\Http\Controllers\AdminController::class, 'users'])->name('users.index');
     Route::get('/users/{user}/orders', [App\Http\Controllers\AdminController::class, 'userOrders'])->name('users.orders');
 }); 
