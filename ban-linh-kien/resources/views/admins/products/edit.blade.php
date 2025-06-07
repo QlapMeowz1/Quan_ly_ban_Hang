@@ -207,37 +207,27 @@
                             </div>
                         </div>
 
-                        <div class="card">
+                        <div class="card mb-3">
                             <div class="card-body">
-                                <h6 class="card-title">Hình ảnh</h6>
-
+                                <h6 class="card-title">Ảnh sản phẩm</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Ảnh hiện tại:</label>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        @foreach($product->images as $image)
+                                            <div class="position-relative" style="display:inline-block;">
+                                                <img src="{{ asset('storage/' . $image->image_url) }}" alt="Ảnh sản phẩm" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid #eee;">
+                                                <label class="position-absolute top-0 end-0 m-1">
+                                                    <input type="checkbox" name="delete_images[]" value="{{ $image->image_id }}">
+                                                    <span class="badge bg-danger">Xóa</span>
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
                                 <div class="mb-3">
                                     <label for="images" class="form-label">Thêm ảnh mới</label>
-                                    <input type="file" class="form-control @error('images.*') is-invalid @enderror" 
-                                           id="images" name="images[]" multiple accept="image/*">
-                                    @error('images.*')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    <small class="form-text text-muted">Có thể chọn nhiều ảnh. Chấp nhận các định dạng: JPG, PNG, GIF</small>
-                                </div>
-
-                                <div class="row g-2">
-                                    @foreach($product->images as $image)
-                                        <div class="col-6">
-                                            <div class="position-relative">
-                                                <img src="{{ asset('storage/' . $image->image_url) }}" 
-                                                     alt="{{ $product->product_name }}"
-                                                     class="img-thumbnail">
-                                                <div class="position-absolute top-0 end-0">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" 
-                                                               name="delete_images[]" value="{{ $image->image_id }}">
-                                                        <label class="form-check-label">Xóa</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                    <input type="file" name="images[]" id="images" class="form-control" multiple accept="image/*">
+                                    <small class="text-muted">Có thể chọn nhiều ảnh. Ảnh mới sẽ được thêm vào sản phẩm.</small>
                                 </div>
                             </div>
                         </div>
