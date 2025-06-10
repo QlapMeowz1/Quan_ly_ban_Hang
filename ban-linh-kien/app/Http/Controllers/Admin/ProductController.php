@@ -64,6 +64,12 @@ class ProductController extends Controller
             ->with('success', 'Sản phẩm đã được tạo thành công.');
     }
 
+    public function show(Product $product)
+    {
+        $product->load(['category', 'brand', 'images']);
+        return view('admins.products.show', compact('product'));
+    }
+
     public function edit(Product $product)
     {
         $product->load(['category', 'images']);

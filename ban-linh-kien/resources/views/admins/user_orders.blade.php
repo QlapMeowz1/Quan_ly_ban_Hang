@@ -20,7 +20,7 @@
                 <td>{{ $order->order_status }}</td>
                 <td>{{ number_format($order->total_amount, 0, ',', '.') }} đ</td>
                 <td>
-                    <a href="{{ route('orders.show', $order->order_id) }}" class="btn btn-info btn-sm">Xem chi tiết</a>
+                    <a href="{{ route('admin.orders.show', $order->order_id) }}" class="btn btn-info btn-sm">Xem chi tiết</a>
                 </td>
             </tr>
             @endforeach

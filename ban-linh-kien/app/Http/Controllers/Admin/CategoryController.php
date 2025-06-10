@@ -37,6 +37,12 @@ class CategoryController extends Controller
         return redirect()->route('admin.categories.index')->with('success', 'Đã thêm danh mục thành công!');
     }
 
+    public function show(Category $category)
+    {
+        $category->load('parent', 'products');
+        return view('admins.categories.show', compact('category'));
+    }
+
     public function edit(Category $category)
     {
         $categories = Category::where('category_id', '!=', $category->category_id)->get();

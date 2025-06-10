@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Thời gian</th>
@@ -20,13 +20,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($monthlyRevenue as $revenue)
+                        @forelse($monthlyRevenue as $row)
                         <tr>
-                            <td>{{ $revenue->month }}/{{ $revenue->year }}</td>
-                            <td>{{ number_format($revenue->order_count) }}</td>
-                            <td>{{ number_format($revenue->revenue) }}đ</td>
+                            <td>{{ $row->month }}/{{ $row->year }}</td>
+                            <td>{{ $row->order_count }}</td>
+                            <td>{{ number_format($row->revenue, 0, ',', '.') }} đ</td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr><td colspan="3" class="text-center">Không có dữ liệu</td></tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -40,7 +42,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Sản phẩm</th>
@@ -49,13 +51,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($topProducts as $product)
+                        @forelse($topProducts as $product)
                         <tr>
                             <td>{{ $product->product_name }}</td>
-                            <td>{{ number_format($product->total_sold) }}</td>
-                            <td>{{ number_format($product->total_revenue) }}đ</td>
+                            <td>{{ $product->total_sold }}</td>
+                            <td>{{ number_format($product->total_revenue, 0, ',', '.') }} đ</td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr><td colspan="3" class="text-center">Không có dữ liệu</td></tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -69,7 +73,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Sản phẩm</th>
@@ -78,17 +82,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($lowStock as $product)
+                        @forelse($lowStock as $product)
                         <tr>
                             <td>{{ $product->product_name }}</td>
-                            <td>
-                                <span class="badge bg-{{ $product->stock_quantity == 0 ? 'danger' : 'warning' }}">
-                                    {{ $product->stock_quantity }}
-                                </span>
-                            </td>
+                            <td>{{ $product->stock_quantity }}</td>
                             <td>{{ $product->min_stock_level }}</td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr><td colspan="3" class="text-center">Không có dữ liệu</td></tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

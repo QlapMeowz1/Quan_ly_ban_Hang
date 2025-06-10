@@ -27,9 +27,6 @@ class Order extends Model
         'delivery_date'
     ];
 
-    /**
-     * Get the route key name for Laravel's Route Model Binding.
-     */
     public function getRouteKeyName()
     {
         return 'order_id';
@@ -53,6 +50,7 @@ class Order extends Model
             'processing' => 'Đang xử lý',
             'shipping' => 'Đang vận chuyển',
             'delivered' => 'Đã giao hàng',
+            'completed' => 'Hoàn thành',
             'cancelled' => 'Đã hủy',
             'returned' => 'Đã trả hàng',
         ];
@@ -66,6 +64,7 @@ class Order extends Model
             'paid' => 'Đã thanh toán',
             'refunded' => 'Đã hoàn tiền',
             'failed' => 'Thanh toán thất bại',
+            'cancelled' => 'Đã hủy',
         ];
         return $map[$this->payment_status] ?? $this->payment_status;
     }
