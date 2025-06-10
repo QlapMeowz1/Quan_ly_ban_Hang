@@ -38,7 +38,8 @@
                     <img src="{{ asset('storage/' . $img->image_url) }}" alt="thumb" 
                         class="img-thumbnail" 
                         style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;"
-                        onclick="document.getElementById('mainProductImg').src='{{ asset('storage/' . $img->image_url) }}'">
+                        data-image="{{ asset('storage/' . $img->image_url) }}"
+                        onclick="changeMainImage(this)">
                 @endforeach
             </div>
             @endif
@@ -169,6 +170,10 @@
 
 @push('scripts')
 <script>
+function changeMainImage(element) {
+    document.getElementById('mainProductImg').src = element.dataset.image;
+}
+
 function incrementQuantity() {
     const input = document.getElementById('quantity');
     const max = parseInt(input.getAttribute('max'));
