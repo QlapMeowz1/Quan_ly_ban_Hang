@@ -49,6 +49,10 @@ class AdminController extends Controller
             ->leftJoin('order_items', 'products.product_id', '=', 'order_items.product_id')
             ->leftJoin('orders', 'order_items.order_id', '=', 'orders.order_id')
             ->leftJoin('categories', 'products.category_id', '=', 'categories.category_id')
+            ->leftJoin('product_images', function($join) {
+                $join->on('products.product_id', '=', 'product_images.product_id');
+                $join->where('product_images.is_primary', '=', 1);
+            })
             ->select(
                 'products.product_id',
                 'products.product_name',
@@ -57,6 +61,7 @@ class AdminController extends Controller
                 'products.stock_quantity',
                 'products.min_stock_level',
                 'categories.category_name',
+                'product_images.image_url',
                 DB::raw('COUNT(order_items.order_item_id) as total_sold'),
                 DB::raw('SUM(order_items.total_price) as total_revenue')
             )
@@ -68,7 +73,8 @@ class AdminController extends Controller
                 'products.price',
                 'products.stock_quantity',
                 'products.min_stock_level',
-                'categories.category_name'
+                'categories.category_name',
+                'product_images.image_url'
             )
             ->orderByDesc('total_sold')
             ->limit(10)

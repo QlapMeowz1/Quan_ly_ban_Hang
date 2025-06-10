@@ -155,8 +155,8 @@
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    @if($product->images->first())
-                                        <img src="{{ asset('storage/' . $product->images->first()->image_url) }}" 
+                                    @if($product->image_url)
+                                        <img src="{{ asset('storage/' . $product->image_url) }}" 
                                              alt="{{ $product->product_name }}" 
                                              class="rounded me-2" 
                                              width="40">
@@ -171,7 +171,7 @@
                                     </a>
                                 </div>
                             </td>
-                            <td>{{ optional($product->category)->category_name ?? 'N/A' }}</td>
+                            <td>{{ $product->category_name ?? 'N/A' }}</td>
                             <td>{{ number_format($product->price) }}đ</td>
                             <td>{{ number_format($product->total_sold ?? 0) }}</td>
                             <td>{{ number_format($product->total_revenue ?? 0) }}đ</td>
