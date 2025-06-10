@@ -14,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProductReviewController;
 use Illuminate\Support\Facades\Auth;
+use App\Models\SpinHistory;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,19 +72,15 @@ Route::post('/cart/remove', function (\Illuminate\Http\Request $request) {
     }
     return redirect()->route('cart.index')->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
 })->name('cart.remove');
-
 Auth::routes();
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/password', [ProfileController::class, 'passwordForm'])->name('profile.password');
     Route::post('/profile/password', [ProfileController::class, 'changePassword'])->name('profile.password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-
     Route::get('/checkout', function () {
         $cart = session('cart', []);
         if (empty($cart)) {
@@ -92,40 +89,22 @@ Route::middleware('auth')->group(function () {
         $products = \App\Models\Product::whereIn('product_id', array_keys($cart))->get();
         return view('checkout', compact('cart', 'products'));
     })->name('checkout.index');
-
     Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
 });
-
-
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
-    
-
     Route::resource('customers', App\Http\Controllers\Admin\CustomerController::class);
-    
-
     Route::resource('admins', App\Http\Controllers\AdminController::class);
-    
-
     Route::resource('products', App\Http\Controllers\Admin\ProductController::class);
-    
-
     Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
-    
-
     Route::resource('brands', App\Http\Controllers\BrandController::class);
-    
-  
     Route::get('/reports', [App\Http\Controllers\ReportController::class, 'index'])->name('reports.index');
-    
-    
     Route::get('/users', [App\Http\Controllers\AdminController::class, 'users'])->name('users.index');
     Route::get('/users/{user}/orders', [App\Http\Controllers\AdminController::class, 'userOrders'])->name('users.orders');
-
     Route::get('orders', [\App\Http\Controllers\Admin\OrderController::class, 'list'])->name('orders.list');
     Route::get('orders/{order_id}/edit-status', [\App\Http\Controllers\Admin\OrderController::class, 'editStatus'])->name('orders.edit_status');
     Route::post('orders/{order_id}/update-status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.update_status');
     Route::get('orders/{order_id}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
+    Route::resource('coupons', App\Http\Controllers\Admin\CouponController::class);
 });
-
 Route::post('/products/{product}/reviews', [ProductReviewController::class, 'store'])->name('products.reviews.store'); 

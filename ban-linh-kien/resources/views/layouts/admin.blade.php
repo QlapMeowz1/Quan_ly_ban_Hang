@@ -203,6 +203,11 @@
                         <i class="fas fa-chart-bar"></i> Báo cáo
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('admin/coupons*') ? 'active' : '' }}" href="{{ route('admin.coupons.index') }}">
+                        <i class="fas fa-ticket-alt"></i> Mã giảm giá
+                    </a>
+                </li>
             </ul>
         </nav>
 
