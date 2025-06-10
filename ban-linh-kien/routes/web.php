@@ -48,6 +48,11 @@ Route::post('/cart/add', function (\Illuminate\Http\Request $request) {
     $productId = $request->input('product_id');
     $quantity = $request->input('quantity', 1);
 
+    $product = \App\Models\Product::find($productId);
+    if (!$product || $product->status !== 'active' || $product->stock_quantity < 1) {
+        return redirect()->route('cart.index')->with('error', 'Sản phẩm này hiện đang ngừng bán hoặc hết hàng!');
+    }
+
     if (isset($cart[$productId])) {
         $cart[$productId] += $quantity;
     } else {

@@ -65,7 +65,7 @@
                     </span>
                 </div>
 
-                @if($product->stock_quantity > 0)
+                @if($product->status === 'active' && $product->stock_quantity > 0)
                 <form action="{{ route('cart.add') }}" method="POST" class="mb-3">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->product_id }}">
@@ -84,6 +84,10 @@
                         </div>
                     </div>
                 </form>
+                @else
+                <div class="alert alert-warning mt-3">
+                    Sản phẩm này hiện đang ngừng bán hoặc hết hàng. Bạn không thể đặt hàng.
+                </div>
                 @endif
             </div>
 

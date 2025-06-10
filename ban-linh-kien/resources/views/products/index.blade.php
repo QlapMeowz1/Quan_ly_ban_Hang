@@ -139,6 +139,7 @@
                                 <i class="bi bi-box"></i> Còn {{ $product->stock_quantity }} sản phẩm
                             </p>
                             <div class="d-flex gap-2">
+                                @if($product->status === 'active' && $product->stock_quantity > 0)
                                 <form action="{{ route('cart.add') }}" method="POST" class="flex-grow-1">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->product_id }}">
@@ -147,6 +148,7 @@
                                         <i class="bi bi-cart-plus"></i> Thêm vào giỏ
                                     </button>
                                 </form>
+                                @endif
                                 <a href="{{ route('products.show', $product->product_id) }}" class="btn btn-outline-primary btn-sm">
                                     <i class="bi bi-eye"></i>
                                 </a>
