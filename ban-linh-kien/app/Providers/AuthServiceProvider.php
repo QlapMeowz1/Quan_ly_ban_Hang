@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Support\Facades\Hash;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,14 +25,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Override validateCredentials để so sánh plain text
+        // Override validateCredentials để sử dụng Hash::check
         Auth::provider('plain', function ($app, array $config) {
             return new class($app['hash'], $config['model']) extends EloquentUserProvider {
                 public function validateCredentials($user, array $credentials)
                 {
                     $plain = $credentials['password'];
-                    // So sánh plain text
-                    return $plain === $user->getAuthPassword();
+                    return $this->hasher->check($plain, $user->getAuthPassword());
                 }
             };
         });

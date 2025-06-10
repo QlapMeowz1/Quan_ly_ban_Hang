@@ -184,7 +184,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{ route('admin.orders.index') }}">
+                    <a class="nav-link {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{ route('admin.orders.list') }}">
                         <i class="fas fa-shopping-cart"></i> Đơn hàng
                     </a>
                 </li>

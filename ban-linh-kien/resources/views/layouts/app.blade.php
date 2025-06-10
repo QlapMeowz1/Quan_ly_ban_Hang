@@ -88,8 +88,7 @@
                    class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <i class="bi bi-speedometer2"></i> Dashboard
                 </a>
-                <a href="{{ route('admin.orders.index') }}" 
-                   class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.orders.list') }}" class="nav-link">
                     <i class="bi bi-cart3"></i> Đơn hàng
                 </a>
                 <a href="{{ route('admin.products.index') }}" 

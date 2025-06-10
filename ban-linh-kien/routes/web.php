@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ProductReviewController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -107,9 +108,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
     
 
-    Route::resource('orders', App\Http\Controllers\OrderController::class);
-    
-
     Route::resource('brands', App\Http\Controllers\BrandController::class);
     
   
@@ -118,4 +116,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     
     Route::get('/users', [App\Http\Controllers\AdminController::class, 'users'])->name('users.index');
     Route::get('/users/{user}/orders', [App\Http\Controllers\AdminController::class, 'userOrders'])->name('users.orders');
-}); 
+
+    Route::get('orders', [\App\Http\Controllers\Admin\OrderController::class, 'list'])->name('orders.list');
+    Route::get('orders/{order_id}/edit-status', [\App\Http\Controllers\Admin\OrderController::class, 'editStatus'])->name('orders.edit_status');
+    Route::post('orders/{order_id}/update-status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.update_status');
+    Route::get('orders/{order_id}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
+});
+
+Route::post('/products/{product}/reviews', [ProductReviewController::class, 'store'])->name('products.reviews.store'); 
