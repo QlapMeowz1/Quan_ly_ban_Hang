@@ -41,6 +41,10 @@
                 <label>Địa chỉ nhận hàng</label>
                 <input type="text" name="address" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label>Mã giảm giá</label>
+                <input type="text" name="coupon_code" class="form-control" value="{{ old('coupon_code') }}">
+            </div>
             <button type="submit" class="btn btn-success">Đặt hàng</button>
         </form>
     @else

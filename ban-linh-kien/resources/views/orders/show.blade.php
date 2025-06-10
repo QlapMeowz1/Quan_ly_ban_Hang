@@ -48,7 +48,16 @@
             @endforeach
         </tbody>
     </table>
-    <h4 class="text-end">Tổng cộng: {{ number_format($order->total_amount, 0, ',', '.') }} đ</h4>
+    <h4>Thông tin thanh toán:</h4>
+    <p><b>Tạm tính:</b> {{ number_format($order->subtotal, 0, ',', '.') }} đ</p>
+    @if($order->discount_amount > 0)
+        <p><b>Giảm giá:</b> -{{ number_format($order->discount_amount, 0, ',', '.') }} đ
+        @if($order->coupon_id)
+            (Mã: {{ optional(App\Models\Coupon::find($order->coupon_id))->coupon_code }})
+        @endif
+        </p>
+    @endif
+    <p><b>Tổng cộng:</b> {{ number_format($order->total_amount, 0, ',', '.') }} đ</p>
     <a href="{{ route('orders.index') }}" class="btn btn-secondary">Quay lại danh sách đơn hàng</a>
 </div>
 @endsection 
