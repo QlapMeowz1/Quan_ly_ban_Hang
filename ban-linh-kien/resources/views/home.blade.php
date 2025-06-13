@@ -1,3 +1,4 @@
+@ -1,45 +0,0 @@
 @extends('layouts.web')
 
 @section('title', 'Trang chủ')
@@ -6,7 +7,7 @@
     <div class="text-center mt-5">
         <h1 class="display-4">Chào mừng đến với <span class="text-primary">Shop Linh Kiện!</span></h1>
         <p class="lead">Chuyên cung cấp linh kiện máy tính, điện tử chất lượng cao.</p>
-        <img src="https://cdn.pixabay.com/photo/2017/01/06/19/15/computer-1952027_1280.jpg" class="img-fluid rounded shadow mb-4 animate__animated animate__fadeInDown" style="max-width: 600px;">
+        <img src="{{ asset('images/logo.png') }}" class="img-fluid rounded shadow mb-4 animate__animated animate__fadeInDown" style="max-width: 600px;">
         <div class="mt-4">
             <a href="{{ route('products.index') }}" class="btn btn-lg btn-success">Xem sản phẩm</a>
             <a href="{{ route('categories.index') }}" class="btn btn-lg btn-outline-primary ms-2">Danh mục</a>
