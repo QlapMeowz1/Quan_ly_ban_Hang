@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -47,10 +46,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function customer()
     {
         return $this->hasOne(\App\Models\Customer::class, 'user_id', 'id');
-    }
-
-    public function sendEmailVerificationNotification()
-    {
-        $this->notify(new \App\Notifications\CustomVerifyEmail('gmail1'));
     }
 }

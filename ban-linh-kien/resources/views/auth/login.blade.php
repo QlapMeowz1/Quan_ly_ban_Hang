@@ -32,10 +32,6 @@
                         <a href="{{ route('forgot-password') }}">Quên mật khẩu?</a>
                     </div>
                     <div class="mt-3 text-center">
-                        <a href="{{ route('auth.google') }}" class="btn btn-danger w-100 mb-2">Đăng nhập bằng Google</a>
-                        <a href="{{ route('auth.facebook') }}" class="btn btn-primary w-100">Đăng nhập bằng Facebook</a>
-                    </div>
-                    <div class="mt-3 text-center">
                         <a href="{{ route('register') }}">Chưa có tài khoản? Đăng ký</a>
                     </div>
                 </div>

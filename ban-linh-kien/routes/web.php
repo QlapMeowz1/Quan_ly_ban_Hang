@@ -15,7 +15,6 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProductReviewController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SpinHistory;
-use App\Http\Controllers\Auth\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::get('/checkout', function () {
         $cart = session('cart', []);
         if (empty($cart)) {
@@ -91,7 +91,7 @@ Route::middleware('auth')->group(function () {
         return view('checkout', compact('cart', 'products'));
     })->name('checkout.index');
     Route::post('/checkout', [OrderController::class, 'store'])
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth'])
         ->name('checkout.store');
 });
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
@@ -109,6 +109,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::post('orders/{order_id}/update-status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.update_status');
     Route::get('orders/{order_id}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
     Route::resource('coupons', App\Http\Controllers\Admin\CouponController::class);
+    Route::get('settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+    Route::post('settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
 });
 Route::post('/products/{product}/reviews', [ProductReviewController::class, 'store'])->name('products.reviews.store');
 
@@ -118,10 +120,4 @@ Route::post('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordControll
 
 // Đặt lại mật khẩu
 Route::get('reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update');
-
-Route::get('auth/google', [SocialController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback']);
-
-Route::get('auth/facebook', [SocialController::class, 'redirectToFacebook'])->name('auth.facebook');
-Route::get('auth/facebook/callback', [SocialController::class, 'handleFacebookCallback']); 
+Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update'); 
