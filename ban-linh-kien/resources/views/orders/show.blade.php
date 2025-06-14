@@ -60,4 +60,35 @@
     <p><b>Tổng cộng:</b> {{ number_format($order->total_amount, 0, ',', '.') }} đ</p>
     <a href="{{ route('orders.index') }}" class="btn btn-secondary">Quay lại danh sách đơn hàng</a>
 </div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">Thông tin đơn hàng</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Mã đơn hàng:</strong> {{ $order->order_number }}</p>
+                <p><strong>Ngày đặt:</strong> {{ $order->order_date->format('d/m/Y H:i') }}</p>
+                <p><strong>Trạng thái:</strong> <span class="badge bg-{{ $order->order_status === 'pending' ? 'warning' : ($order->order_status === 'completed' ? 'success' : 'secondary') }}">{{ $order->status_label }}</span></p>
+                <p><strong>Thanh toán:</strong> <span class="badge bg-{{ $order->payment_status === 'paid' ? 'success' : 'warning' }}">{{ $order->payment_status_label }}</span></p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Địa chỉ giao hàng:</strong> {{ $order->shipping_address }}</p>
+                <p><strong>Phương thức thanh toán:</strong> {{ $order->payment_method === 'cod' ? 'Thanh toán khi nhận hàng' : 'Chuyển khoản' }}</p>
+            </div>
+        </div>
+
+        @if($order->order_status === 'pending')
+        <div class="mt-3">
+            <form action="{{ route('orders.cancel', $order) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');">
+                @csrf
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-x-circle"></i> Hủy đơn hàng
+                </button>
+            </form>
+        </div>
+        @endif
+    </div>
+</div>
 @endsection 

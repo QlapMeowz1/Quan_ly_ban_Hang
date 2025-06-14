@@ -36,16 +36,28 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
-            'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
-
+        'gmail1' => [
+            'transport' => 'smtp',
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'encryption' => 'tls',
+            'username' => '23010416@st.phenikaa-uni.edu.vn',
+            'password' => 'umnihrixdeqzdfkf',
+        ],
+        'gmail2' => [
+            'transport' => 'smtp',
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'encryption' => 'tls',
+            'username' => 'email2@gmail.com',
+            'password' => 'app-password-2',
+        ],
         'ses' => [
             'transport' => 'ses',
         ],
@@ -93,6 +105,23 @@ return [
                 'ses',
                 'postmark',
             ],
+        ],
+
+        'smtp1' => [
+            'transport' => 'smtp',
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'encryption' => 'tls',
+            'username' => 'email1@gmail.com',
+            'password' => 'app-password-1',
+        ],
+        'smtp2' => [
+            'transport' => 'smtp',
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'encryption' => 'tls',
+            'username' => 'email2@gmail.com',
+            'password' => 'app-password-2',
         ],
     ],
 

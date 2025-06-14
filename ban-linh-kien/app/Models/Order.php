@@ -27,6 +27,13 @@ class Order extends Model
         'delivery_date'
     ];
 
+    protected $casts = [
+        'order_date' => 'datetime',
+        'payment_date' => 'datetime',
+        'shipping_date' => 'datetime',
+        'delivery_date' => 'datetime',
+    ];
+
     public function getRouteKeyName()
     {
         return 'order_id';
