@@ -15,6 +15,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProductReviewController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SpinHistory;
+use App\Http\Controllers\Auth\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,7 @@ use App\Models\SpinHistory;
 
 // Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
 
 // Product & Category routes for public
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
@@ -72,7 +73,7 @@ Route::post('/cart/remove', function (\Illuminate\Http\Request $request) {
     }
     return redirect()->route('cart.index')->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
 })->name('cart.remove');
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
@@ -89,7 +90,9 @@ Route::middleware('auth')->group(function () {
         $products = \App\Models\Product::whereIn('product_id', array_keys($cart))->get();
         return view('checkout', compact('cart', 'products'));
     })->name('checkout.index');
-    Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
+    Route::post('/checkout', [OrderController::class, 'store'])
+        ->middleware(['auth', 'verified'])
+        ->name('checkout.store');
 });
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
@@ -107,4 +110,18 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('orders/{order_id}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
     Route::resource('coupons', App\Http\Controllers\Admin\CouponController::class);
 });
-Route::post('/products/{product}/reviews', [ProductReviewController::class, 'store'])->name('products.reviews.store'); 
+Route::post('/products/{product}/reviews', [ProductReviewController::class, 'store'])->name('products.reviews.store');
+
+// Quên mật khẩu
+Route::get('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgot-password');
+Route::post('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('forgot-password.post');
+
+// Đặt lại mật khẩu
+Route::get('reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update');
+
+Route::get('auth/google', [SocialController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback']);
+
+Route::get('auth/facebook', [SocialController::class, 'redirectToFacebook'])->name('auth.facebook');
+Route::get('auth/facebook/callback', [SocialController::class, 'handleFacebookCallback']); 
