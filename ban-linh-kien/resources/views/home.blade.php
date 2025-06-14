@@ -1,4 +1,4 @@
-@ -1,45 +0,0 @@
+
 @extends('layouts.web')
 
 @section('title', 'Trang chủ')

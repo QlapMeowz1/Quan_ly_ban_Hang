@@ -28,6 +28,9 @@
                         <input type="password" name="password" required class="form-control mb-2">
                         <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
                     </form>
+                    <div class="mt-2 text-center">
+                        <a href="{{ route('forgot-password') }}">Quên mật khẩu?</a>
+                    </div>
                     <div class="mt-3 text-center">
                         <a href="{{ route('register') }}">Chưa có tài khoản? Đăng ký</a>
                     </div>

@@ -34,7 +34,7 @@ class OrderController extends Controller
     {
         $cart = session('cart', []);
         if (empty($cart)) {
-            return redirect()->route('cart.index')->with('error', 'Giỏ hàng trống!');
+            return redirect()->route('checkout.index')->with('error', 'Giỏ hàng trống!');
         }
 
         // Kiểm tra user và quan hệ customer
@@ -87,6 +87,9 @@ class OrderController extends Controller
                 ->whereRaw('usage_limit IS NULL OR used_count < usage_limit')
                 ->first();
             if ($coupon) {
+                if ($total < $coupon->minimum_order_amount) {
+                    return redirect()->route('checkout.index')->with('error', 'Đơn hàng chưa đủ điều kiện áp dụng mã giảm giá!');
+                }
                 if ($coupon->discount_type == 'percentage') {
                     $discountAmount = $total * ($coupon->discount_value / 100);
                     if ($coupon->maximum_discount_amount) {
@@ -95,12 +98,8 @@ class OrderController extends Controller
                 } else {
                     $discountAmount = $coupon->discount_value;
                 }
-                if ($total < $coupon->minimum_order_amount) {
-                    $discountAmount = 0;
-                    $coupon = null;
-                }
             } else {
-                return redirect()->route('cart.index')->with('error', 'Mã giảm giá không hợp lệ hoặc đã hết hạn!');
+                return redirect()->route('checkout.index')->with('error', 'Mã giảm giá không hợp lệ hoặc đã hết hạn!');
             }
         }
 
@@ -145,5 +144,29 @@ class OrderController extends Controller
 
         $order->load('orderItems.product', 'customer');
         return view('orders.show', compact('order'));
+    }
+
+    public function cancel(Order $order)
+    {
+        // Kiểm tra quyền hủy đơn hàng
+        $user = auth()->user();
+        if (!$user->customer || $order->customer_id !== $user->customer->customer_id) {
+            abort(403, 'Bạn không có quyền hủy đơn hàng này!');
+        }
+
+        // Chỉ cho phép hủy đơn hàng khi đang ở trạng thái pending
+        if ($order->order_status !== 'pending') {
+            return redirect()->route('orders.show', $order)
+                ->with('error', 'Không thể hủy đơn hàng này vì đã được xử lý!');
+        }
+
+        // Cập nhật trạng thái đơn hàng
+        $order->update([
+            'order_status' => 'cancelled',
+            'payment_status' => 'cancelled'
+        ]);
+
+        return redirect()->route('orders.show', $order)
+            ->with('success', 'Đã hủy đơn hàng thành công!');
     }
 }

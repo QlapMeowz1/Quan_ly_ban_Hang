@@ -208,6 +208,11 @@
                         <i class="fas fa-ticket-alt"></i> Mã giảm giá
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('admin/settings*') ? 'active' : '' }}" href="{{ route('admin.settings.index') }}">
+                        <i class="fas fa-cog"></i> Cài đặt website
+                    </a>
+                </li>
             </ul>
         </nav>
 

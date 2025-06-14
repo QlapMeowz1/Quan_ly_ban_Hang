@@ -75,6 +75,9 @@ class RegisterController extends Controller
             'password_hash' => $user->password,
             'status' => 'active',
         ]);
+
+        event(new \Illuminate\Auth\Events\Registered($user));
+        
         return $user;
     }
 }
