@@ -17,21 +17,21 @@
         }
         .dark-mode {
             background: #18191a !important;
-            color: #e4e6eb !important;
+            color: #cccccc !important;
         }
         .dark-mode .card, .dark-mode .navbar, .dark-mode .footer-services, .dark-mode .footer-info, .dark-mode footer {
             background: #242526 !important;
-            color: #e4e6eb !important;
+            color: #cccccc !important;
         }
         .dark-mode .navbar-nav .nav-link, .dark-mode .navbar-brand {
-            color: #e4e6eb !important;
+            color: #cccccc !important;
         }
         .dark-mode .card {
             box-shadow: 0 8px 24px rgba(0,0,0,0.5);
         }
         .dark-mode .form-control {
             background: #242526;
-            color: #e4e6eb;
+            color: #cccccc;
             border-color: #444;
         }
         .dark-mode .form-control:focus {
@@ -74,10 +74,10 @@
             background: #232526 !important;
         }
         .dark-mode .fi-title, .dark-mode h4, .dark-mode h6, .dark-mode .fw-bold {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode a, .dark-mode a:visited {
-            color: #FFD600;
+            color: #ffe066;
         }
         .dark-mode a:hover {
             color: #fff;
@@ -87,7 +87,7 @@
         }
         .dark-mode .btn, .dark-mode .btn-secondary {
             background: #3a3b3c;
-            color: #e4e6eb;
+            color: #cccccc;
             border-color: #444;
         }
         .dark-mode .btn:hover, .dark-mode .btn-secondary:hover {
@@ -95,20 +95,20 @@
             color: #fff;
         }
         .dark-mode .form-label {
-            color: #FFD600;
+            color: #ffe066;
         }
         .dark-mode .navbar {
             background: #232526 !important;
         }
         .dark-mode .navbar .nav-link.active, .dark-mode .navbar .nav-link:hover {
-            background: #FFD600;
+            background: #ffe066;
             color: #232526 !important;
         }
         .dark-mode .navbar .nav-link {
             color: #e4e6eb !important;
         }
         .dark-mode .navbar-brand {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .dropdown-menu {
             background: #232526;
@@ -120,11 +120,11 @@
             background: #3a3b3c;
         }
         .dark-mode .breadcrumb {
-            color: #FFD600;
+            color: #ffe066;
         }
         .dark-mode .alert-success {
             background: #232526;
-            color: #FFD600;
+            color: #ffe066;
         }
         .dark-mode .alert-danger {
             background: #232526;
@@ -159,22 +159,22 @@
             border-color: #444;
         }
         .dark-mode .modal-title {
-            color: #FFD600;
+            color: #ffe066;
         }
         .dark-mode .close {
             color: #e4e6eb;
         }
         .dark-mode .pagination .page-link {
             background: #232526;
-            color: #FFD600;
+            color: #ffe066;
             border-color: #444;
         }
         .dark-mode .pagination .page-link.active, .dark-mode .pagination .active > .page-link {
-            background: #FFD600;
+            background: #ffe066;
             color: #232526;
-            border-color: #FFD600;
+            border-color: #ffe066;
         }
-        .dark-mode .pagination .page-link:hover {
+        .dark-mode .page-link:hover {
             background: #4e54c8;
             color: #fff;
         }
@@ -182,55 +182,55 @@
             background: #232526 !important;
         }
         .dark-mode .footer-info a {
-            color: #FFD600;
+            color: #ffe066;
         }
         .dark-mode .footer-info a:hover {
             color: #fff;
         }
         .dark-mode .fi-title, .dark-mode .footer-info h4, .dark-mode .footer-info h6 {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .text-muted {
             color: #b0b3b8 !important;
         }
         .dark-mode .footer-info .fw-bold {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .payment_block h4 {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .payment_block img {
             filter: brightness(0.8) contrast(1.2);
         }
         .dark-mode .footer-info .fi-title {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .fa {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .fa-phone, .dark-mode .footer-info .fa-envelope, .dark-mode .footer-info .fa-map-marker-alt {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .fa {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .widget_links h4 {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .widget_links img {
             filter: brightness(0.8) contrast(1.2);
         }
         .dark-mode .footer-info .fi-title {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .fa {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .fa-phone, .dark-mode .footer-info .fa-envelope, .dark-mode .footer-info .fa-map-marker-alt {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .dark-mode .footer-info .fa {
-            color: #FFD600 !important;
+            color: #ffe066 !important;
         }
         .card:hover {
             transform: translateY(-8px) scale(1.03);
@@ -269,7 +269,7 @@
     </button>
     <nav class="navbar navbar-expand-lg navbar-light bg-gradient border-bottom shadow-sm mb-4" style="background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);">
         <div class="container">
-            <a class="navbar-brand text-white" href="/"><i class="bi bi-cpu"></i> <span style="color:#FFD600">Shop Linh Kiện</span></a>
+            <a class="navbar-brand text-white" href="/"><i class="bi bi-cpu"></i> <span style="color:#ffe066">Shop Linh Kiện</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
