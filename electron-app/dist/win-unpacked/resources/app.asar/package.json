@@ -1,8 +1,0 @@
-{
-  "name": "linh-kien-app",
-  "version": "1.0.0",
-  "description": "Ứng dụng bán linh kiện máy tính",
-  "main": "src/main.js",
-  "author": "",
-  "license": "ISC"
-}
