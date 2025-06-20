@@ -17,26 +17,29 @@
         }
         .dark-mode {
             background: #18191a !important;
-            color: #cccccc !important;
+            color: #e4e6eb !important;
         }
         .dark-mode .card, .dark-mode .navbar, .dark-mode .footer-services, .dark-mode .footer-info, .dark-mode footer {
             background: #242526 !important;
-            color: #cccccc !important;
+            color: #e4e6eb !important;
         }
         .dark-mode .navbar-nav .nav-link, .dark-mode .navbar-brand {
-            color: #cccccc !important;
+            color: #e4e6eb !important;
         }
         .dark-mode .card {
             box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            border: 1px solid #3a3b3c;
         }
         .dark-mode .form-control {
             background: #242526;
-            color: #cccccc;
-            border-color: #444;
+            color: #e4e6eb;
+            border-color: #3a3b3c;
         }
         .dark-mode .form-control:focus {
             background: #18191a;
             color: #fff;
+            border-color: #ffe066;
+            box-shadow: 0 0 0 0.2rem rgba(255, 224, 102, 0.25);
         }
         .dark-mode .btn-primary {
             background: #3a3b3c;
@@ -52,11 +55,12 @@
         .dark-mode .alert {
             background: #232526;
             color: #e4e6eb;
-            border-color: #444;
+            border-color: #3a3b3c;
         }
         .dark-mode .dropdown-menu {
             background: #232526;
             color: #e4e6eb;
+            border: 1px solid #3a3b3c;
         }
         .dark-mode .dropdown-item {
             color: #e4e6eb;
@@ -69,6 +73,8 @@
         }
         .dark-mode .table thead th {
             background: #232526;
+            color: #ffe066;
+            border-color: #3a3b3c;
         }
         .dark-mode .footer-services, .dark-mode .footer-info {
             background: #232526 !important;
@@ -87,12 +93,14 @@
         }
         .dark-mode .btn, .dark-mode .btn-secondary {
             background: #3a3b3c;
-            color: #cccccc;
-            border-color: #444;
+            color: #e4e6eb;
+            border-color: #3a3b3c;
         }
         .dark-mode .btn:hover, .dark-mode .btn-secondary:hover {
             background: #4e54c8;
             color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
         .dark-mode .form-label {
             color: #ffe066;
@@ -123,12 +131,14 @@
             color: #ffe066;
         }
         .dark-mode .alert-success {
-            background: #232526;
-            color: #ffe066;
+            background: #1f4c2e;
+            color: #4ade80;
+            border-color: #22c55e;
         }
         .dark-mode .alert-danger {
-            background: #232526;
-            color: #ff4d4f;
+            background: #4c1f1f;
+            color: #f87171;
+            border-color: #ef4444;
         }
         .dark-mode .form-control::placeholder {
             color: #b0b3b8;
@@ -136,11 +146,12 @@
         .dark-mode .form-select {
             background: #232526;
             color: #e4e6eb;
-            border-color: #444;
+            border-color: #3a3b3c;
         }
         .dark-mode .form-select:focus {
             background: #18191a;
             color: #fff;
+            border-color: #ffe066;
         }
         .dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
             background: #232526;
@@ -154,9 +165,10 @@
         .dark-mode .modal-content {
             background: #232526;
             color: #e4e6eb;
+            border: 1px solid #3a3b3c;
         }
         .dark-mode .modal-header, .dark-mode .modal-footer {
-            border-color: #444;
+            border-color: #3a3b3c;
         }
         .dark-mode .modal-title {
             color: #ffe066;
@@ -167,7 +179,7 @@
         .dark-mode .pagination .page-link {
             background: #232526;
             color: #ffe066;
-            border-color: #444;
+            border-color: #3a3b3c;
         }
         .dark-mode .pagination .page-link.active, .dark-mode .pagination .active > .page-link {
             background: #ffe066;
@@ -187,6 +199,16 @@
         .dark-mode .footer-info a:hover {
             color: #fff;
         }
+        /* Cải thiện footer trong dark mode */
+        .dark-mode .footer-info {
+            background: #232526 !important;
+        }
+        .dark-mode .footer-info a {
+            color: #ffe066;
+        }
+        .dark-mode .footer-info a:hover {
+            color: #fff;
+        }
         .dark-mode .fi-title, .dark-mode .footer-info h4, .dark-mode .footer-info h6 {
             color: #ffe066 !important;
         }
@@ -196,42 +218,65 @@
         .dark-mode .footer-info .fw-bold {
             color: #ffe066 !important;
         }
-        .dark-mode .footer-info .payment_block h4 {
-            color: #ffe066 !important;
-        }
-        .dark-mode .footer-info .payment_block img {
-            filter: brightness(0.8) contrast(1.2);
-        }
-        .dark-mode .footer-info .fi-title {
-            color: #ffe066 !important;
-        }
         .dark-mode .footer-info .fa {
-            color: #ffe066 !important;
+            color: #4ade80 !important; /* Thay đổi từ #ffe066 sang màu xanh dịu hơn */
         }
         .dark-mode .footer-info .fa-phone, .dark-mode .footer-info .fa-envelope, .dark-mode .footer-info .fa-map-marker-alt {
-            color: #ffe066 !important;
+            color: #4ade80 !important; /* Màu xanh dịu hơn */
         }
-        .dark-mode .footer-info .fa {
-            color: #ffe066 !important;
-        }
-        .dark-mode .footer-info .widget_links h4 {
-            color: #ffe066 !important;
-        }
-        .dark-mode .footer-info .widget_links img {
-            filter: brightness(0.8) contrast(1.2);
-        }
-        .dark-mode .footer-info .fi-title {
-            color: #ffe066 !important;
-        }
-        .dark-mode .footer-info .fa {
-            color: #ffe066 !important;
-        }
-        .dark-mode .footer-info .fa-phone, .dark-mode .footer-info .fa-envelope, .dark-mode .footer-info .fa-map-marker-alt {
-            color: #ffe066 !important;
-        }
-        .dark-mode .footer-info .fa {
-            color: #ffe066 !important;
-        }
+
+                 /* Cải thiện badge trong dark mode */
+         .dark-mode .badge.bg-secondary {
+             background: #4a5568 !important;
+             color: #e2e8f0 !important;
+         }
+                  .dark-mode .badge.bg-success {
+             background: #22c55e !important;
+             color: #ffffff !important;
+         }
+         .dark-mode .badge.bg-warning {
+             background: #f59e0b !important;
+             color: #000000 !important;
+         }
+         .dark-mode .badge.bg-danger {
+             background: #ef4444 !important;
+             color: #ffffff !important;
+         }
+         .dark-mode .badge.bg-info {
+             background: #3b82f6 !important;
+             color: #ffffff !important;
+         }
+                  .dark-mode .badge.bg-primary {
+             background: #6366f1 !important;
+             color: #ffffff !important;
+         }
+
+                  /* Cải thiện contrast text */
+         .dark-mode h1, .dark-mode h2, .dark-mode h3 {
+             color: #ffffff !important;
+         }
+         .dark-mode .text-danger {
+             color: #f87171 !important;
+         }
+         .dark-mode .fw-bold {
+             color: #ffffff !important;
+         }
+
+         /* Thêm hiệu ứng cho các card */
+         .dark-mode .card:hover {
+             transform: translateY(-2px);
+             box-shadow: 0 12px 28px rgba(0,0,0,0.7);
+         }
+
+         /* Cải thiện button styling */
+         .dark-mode .btn-info {
+             background: #3b82f6;
+             border-color: #3b82f6;
+         }
+         .dark-mode .btn-info:hover {
+             background: #2563eb;
+             border-color: #2563eb;
+         }
         .card:hover {
             transform: translateY(-8px) scale(1.03);
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
