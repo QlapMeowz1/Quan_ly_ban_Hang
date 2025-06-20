@@ -62,49 +62,7 @@
                 </div>
             </div>
 
-            @if($categories->isNotEmpty())
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title mb-4">Cấu trúc danh mục</h5>
-                    <div class="list-group">
-                        @foreach($categories->where('parent_category_id', null) as $parentCategory)
-                        <div class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="mb-0">
-                                    <i class="bi bi-folder text-primary"></i>
-                                    <a href="{{ route('categories.show', $parentCategory->category_id) }}" 
-                                       class="text-decoration-none text-dark">
-                                        {{ $parentCategory->category_name }}
-                                    </a>
-                                </h6>
-                                <span class="badge bg-primary rounded-pill">
-                                    {{ $parentCategory->products_count }} sản phẩm
-                                </span>
-                            </div>
-                            @if($parentCategory->children->isNotEmpty())
-                            <div class="ms-4 mt-2">
-                                @foreach($parentCategory->children as $childCategory)
-                                <div class="d-flex justify-content-between align-items-center py-1">
-                                    <div>
-                                        <i class="bi bi-diagram-2 text-muted"></i>
-                                        <a href="{{ route('categories.show', $childCategory->category_id) }}" 
-                                           class="text-decoration-none text-muted">
-                                            {{ $childCategory->category_name }}
-                                        </a>
-                                    </div>
-                                    <span class="badge bg-secondary rounded-pill">
-                                        {{ $childCategory->products_count ?? 0 }} sản phẩm
-                                    </span>
-                                </div>
-                                @endforeach
-                            </div>
-                            @endif
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            @endif
+
         </div>
     </div>
 </div>
