@@ -12,7 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            /* Xóa nền họa tiết carbon, trả lại nền mặc định */
+       
             transition: background 0.3s, color 0.3s;
         }
         .dark-mode {
@@ -219,13 +219,13 @@
             color: #ffe066 !important;
         }
         .dark-mode .footer-info .fa {
-            color: #4ade80 !important; /* Thay đổi từ #ffe066 sang màu xanh dịu hơn */
+            color: #4ade80 !important; 
         }
         .dark-mode .footer-info .fa-phone, .dark-mode .footer-info .fa-envelope, .dark-mode .footer-info .fa-map-marker-alt {
-            color: #4ade80 !important; /* Màu xanh dịu hơn */
+            color: #4ade80 !important; 
         }
 
-                 /* Cải thiện badge trong dark mode */
+                 
          .dark-mode .badge.bg-secondary {
              background: #4a5568 !important;
              color: #e2e8f0 !important;
@@ -251,7 +251,7 @@
              color: #ffffff !important;
          }
 
-                  /* Cải thiện contrast text */
+                 
          .dark-mode h1, .dark-mode h2, .dark-mode h3 {
              color: #ffffff !important;
          }
@@ -262,13 +262,10 @@
              color: #ffffff !important;
          }
 
-         /* Thêm hiệu ứng cho các card */
          .dark-mode .card:hover {
              transform: translateY(-2px);
              box-shadow: 0 12px 28px rgba(0,0,0,0.7);
          }
-
-         /* Cải thiện button styling */
          .dark-mode .btn-info {
              background: #3b82f6;
              border-color: #3b82f6;
