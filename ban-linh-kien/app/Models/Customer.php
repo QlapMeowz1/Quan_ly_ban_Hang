@@ -4,17 +4,38 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class Customer extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
     protected $table = 'customers';
     protected $primaryKey = 'customer_id';
     protected $fillable = [
         'username', 'email', 'password_hash', 'first_name', 'last_name', 'phone',
         'date_of_birth', 'gender', 'status', 'email_verified', 'user_id'
     ];
+    protected $casts = [
+        'email_verified' => 'boolean',
+        'date_of_birth' => 'date',
+    ];
     public $timestamps = false;
+
+    
+    public function hasVerifiedEmail()
+    {
+        return true; // Luôn trả về true - không cần xác thực email
+    }
+
+ 
+    public function markEmailAsVerified()
+    {
+        $this->update([
+            'email_verified' => true,
+        ]);
+    }
 
     public function user()
     {

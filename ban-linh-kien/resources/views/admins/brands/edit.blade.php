@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3">Chỉnh sửa thương hiệu</h1>
         <a href="{{ route('admin.brands.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Quay lại
+            <i class="fas fa-arrow-left"></i> Quay lại
         </a>
     </div>
 
@@ -58,7 +58,7 @@
 
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save"></i> Lưu thay đổi
+                                <i class="fas fa-save"></i> Lưu thay đổi
                             </button>
                         </div>
                     </form>
@@ -77,7 +77,7 @@
                     @else
                         <div class="bg-light rounded d-flex align-items-center justify-content-center" 
                              style="height: 200px">
-                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                            <i class="fas fa-image text-muted" style="font-size: 3rem;"></i>
                         </div>
                         <p class="text-center text-muted mt-2">Chưa có logo</p>
                     @endif

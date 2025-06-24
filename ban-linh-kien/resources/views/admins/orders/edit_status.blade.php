@@ -33,7 +33,7 @@
                 </div>
                 
                 <div class="alert alert-info">
-                    <i class="bi bi-info-circle"></i> <strong>Lưu ý:</strong>
+                    <i class="fas fa-info-circle"></i> <strong>Lưu ý:</strong>
                     <ul class="mb-0">
                         <li>Khi chọn "Đã giao hàng", đơn hàng sẽ tự động chuyển sang "Hoàn thành" và được tính vào doanh thu</li>
                         <li>Số lượng tồn kho sẽ tự động được cập nhật khi giao hàng hoặc hủy/trả hàng</li>

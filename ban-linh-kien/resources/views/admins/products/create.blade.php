@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">
@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-auto">
                     <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left"></i> Quay lại
+                        <i class="fas fa-arrow-left"></i> Quay lại
                     </a>
                 </div>
             </div>
@@ -225,7 +225,7 @@
 
                 <div class="text-end mt-3">
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-save"></i> Thêm sản phẩm
+                        <i class="fas fa-save"></i> Thêm sản phẩm
                     </button>
                 </div>
             </form>

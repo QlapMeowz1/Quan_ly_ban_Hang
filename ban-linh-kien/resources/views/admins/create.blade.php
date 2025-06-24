@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -48,10 +48,10 @@
 
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('admin.admins.index') }}" class="btn btn-secondary">
-                                <i class="bi bi-arrow-left"></i> Quay lại
+                                <i class="fas fa-arrow-left"></i> Quay lại
                             </a>
                             <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-person-plus"></i> Thêm admin
+                                <i class="fas fa-user-plus"></i> Thêm admin
                             </button>
                         </div>
                     </form>

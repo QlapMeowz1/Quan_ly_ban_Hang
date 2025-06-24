@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">
@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-auto">
                     <a href="{{ route('admin.admins.index') }}" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left"></i> Quay lại
+                        <i class="fas fa-arrow-left"></i> Quay lại
                     </a>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-check-lg"></i> Cập nhật
+                            <i class="fas fa-check"></i> Cập nhật
                         </button>
                     </div>
                 </div>

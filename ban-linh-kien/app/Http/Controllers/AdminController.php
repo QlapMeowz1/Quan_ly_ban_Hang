@@ -26,17 +26,17 @@ class AdminController extends Controller
         $totalRevenue = Order::where('order_status', 'completed')->sum('total_amount');
         $totalProducts = Product::count();
         $totalCustomers = Customer::count();
+        $pendingOrders = Order::where('order_status', 'pending')->count();
 
-        // Dữ liệu doanh thu 7 ngày gần đây
-        $revenueData = Order::where('order_status', 'completed')
-            ->where('order_date', '>=', Carbon::now()->subDays(7))
-            ->select(
-                DB::raw('DATE(order_date) as date'),
-                DB::raw('SUM(total_amount) as amount')
-            )
-            ->groupBy('date')
-            ->orderBy('date')
-            ->get();
+        // Dữ liệu doanh thu 7 ngày gần đây (array với đủ 7 ngày)
+        $revenueData = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = Carbon::now()->subDays($i)->format('Y-m-d');
+            $revenue = Order::where('order_status', 'completed')
+                ->whereDate('order_date', $date)
+                ->sum('total_amount');
+            $revenueData[] = $revenue;
+        }
 
         // Đơn hàng gần đây
         $recentOrders = Order::with('customer')
@@ -85,6 +85,7 @@ class AdminController extends Controller
             'totalRevenue',
             'totalProducts',
             'totalCustomers',
+            'pendingOrders',
             'revenueData',
             'recentOrders',
             'topProducts'

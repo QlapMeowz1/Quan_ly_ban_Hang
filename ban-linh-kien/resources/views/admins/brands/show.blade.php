@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">
@@ -6,10 +6,10 @@
         <h1 class="h3">Chi tiết thương hiệu</h1>
         <div>
             <a href="{{ route('admin.brands.edit', $brand->brand_id) }}" class="btn btn-primary">
-                <i class="bi bi-pencil"></i> Chỉnh sửa
+                <i class="fas fa-edit"></i> Chỉnh sửa
             </a>
             <a href="{{ route('admin.brands.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Quay lại
+                <i class="fas fa-arrow-left"></i> Quay lại
             </a>
         </div>
     </div>
@@ -26,7 +26,7 @@
                     @else
                         <div class="bg-light rounded d-flex align-items-center justify-content-center mb-3" 
                              style="height: 200px">
-                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                            <i class="fas fa-image text-muted" style="font-size: 3rem;"></i>
                         </div>
                     @endif
                     <h4>{{ $brand->brand_name }}</h4>
