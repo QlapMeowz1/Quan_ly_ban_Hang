@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3">Quản lý danh mục</h1>
         <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-lg"></i> Thêm danh mục
+            <i class="fas fa-plus"></i> Thêm danh mục
         </a>
     </div>
     @if(session('success'))
@@ -36,13 +36,13 @@
                             <td>
                                 <div class="btn-group">
                                     <a href="{{ route('admin.categories.edit', $category->category_id) }}" class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="{{ route('admin.categories.destroy', $category->category_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
                                 </div>

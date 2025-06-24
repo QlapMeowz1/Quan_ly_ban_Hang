@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">
@@ -13,7 +13,7 @@
                         <input type="search" name="search" class="form-control" 
                                placeholder="Tìm kiếm..." value="{{ request('search') }}">
                         <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-search"></i>
+                            <i class="fas fa-search"></i>
                         </button>
                     </form>
                 </div>
@@ -72,11 +72,11 @@
                                 <div class="d-flex gap-2">
                                     <a href="{{ route('admin.customers.show', $customer->customer_id) }}" 
                                        class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-eye"></i> Chi tiết
+                                        <i class="fas fa-eye"></i> Chi tiết
                                     </a>
                                     <a href="{{ route('admin.customers.edit', $customer->customer_id) }}" 
                                        class="btn btn-sm btn-outline-warning">
-                                        <i class="bi bi-pencil"></i> Sửa
+                                        <i class="fas fa-edit"></i> Sửa
                                     </a>
                                 </div>
                             </td>

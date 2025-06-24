@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">
@@ -10,10 +10,10 @@
                 </div>
                 <div class="col-auto">
                     <a href="{{ route('admin.customers.index') }}" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left"></i> Quay lại
+                        <i class="fas fa-arrow-left"></i> Quay lại
                     </a>
                     <a href="{{ route('admin.customers.edit', $customer->customer_id) }}" class="btn btn-warning">
-                        <i class="bi bi-pencil"></i> Sửa
+                        <i class="fas fa-edit"></i> Sửa
                     </a>
                 </div>
             </div>
@@ -147,7 +147,7 @@
                                 <td>
                                     <a href="{{ route('admin.orders.show', $order->order_id) }}" 
                                        class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-eye"></i> Chi tiết
+                                        <i class="fas fa-eye"></i> Chi tiết
                                     </a>
                                 </td>
                             </tr>

@@ -1,188 +1,190 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name', 'Laravel') }} - Quản trị</title>
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Trang quản trị TechMart" />
+    <meta name="author" content="TechMart Dev Team" />
+    <title>@yield('title', 'Dashboard') - TechMart Admin</title>
 
     <!-- Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            min-height: 100vh;
-            background-color: #f8f9fa;
-        }
-        .sidebar {
-            width: 280px;
-            background: #2c3e50;
-            min-height: 100vh;
-            transition: all 0.3s;
-        }
-        .sidebar .nav-link {
-            color: rgba(255,255,255,.8);
-            padding: 0.8rem 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .sidebar .nav-link:hover {
-            color: #fff;
-            background: rgba(255,255,255,.1);
-        }
-        .sidebar .nav-link.active {
-            color: #fff;
-            background: rgba(255,255,255,.1);
-        }
-        .sidebar-logo {
-            padding: 1.5rem;
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .sidebar-logo:hover {
-            color: #fff;
-        }
-        .sidebar-logo img {
-            width: 40px;
-            height: 40px;
-        }
-        .sidebar-logo span {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
-        .navbar {
-            background: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,.04);
-        }
-        .dropdown-menu {
-            border: none;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="{{ asset('themes/admin/css/styles.css') }}" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    @stack('styles')
 </head>
-<body>
-    <div class="d-flex">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <a href="{{ route('admin.dashboard') }}" class="sidebar-logo">
-                <img src="{{ asset('images/admin-logo.png') }}" alt="Logo">
-                <span>ADMIN PANEL</span>
-            </a>
-            <nav class="nav flex-column mt-2">
-                <a href="{{ route('admin.dashboard') }}" 
-                   class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                    <i class="bi bi-speedometer2"></i> Dashboard
+<body class="sb-nav-fixed">
+    <!-- Navbar -->
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="{{ route('admin.dashboard') }}">TechMart Admin</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+
+        <ul class="navbar-nav ms-auto me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-user fa-fw"></i> {{ Auth::user()->name }}
                 </a>
-                <a href="{{ route('admin.orders.list') }}" class="nav-link">
-                    <i class="bi bi-cart3"></i> Đơn hàng
-                </a>
-                <a href="{{ route('admin.products.index') }}" 
-                   class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
-                    <i class="bi bi-box"></i> Sản phẩm
-                </a>
-                <a href="{{ route('admin.categories.index') }}" 
-                   class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                    <i class="bi bi-grid"></i> Danh mục
-                </a>
-                <a href="{{ route('admin.brands.index') }}" 
-                   class="nav-link {{ request()->routeIs('admin.brands.*') ? 'active' : '' }}">
-                    <i class="bi bi-award"></i> Thương hiệu
-                </a>
-                <a href="{{ route('admin.customers.index') }}" 
-                   class="nav-link {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
-                    <i class="bi bi-people"></i> Khách hàng
-                </a>
-                <a href="{{ route('admin.users.index') }}" 
-                   class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                    <i class="bi bi-person"></i> Người dùng
-                </a>
-                <a href="{{ route('admin.reports.index') }}" 
-                   class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
-                    <i class="bi bi-graph-up"></i> Báo cáo
-                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{{ route('home') }}">Xem trang chủ</a></li>
+                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Cài đặt tài khoản</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item w-100 text-start">Đăng xuất</button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Sidenav -->
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+
+                        <div class="sb-sidenav-menu-heading">Quản lý</div>
+
+                        <!-- Quản lý danh mục -->
+                        <a class="nav-link collapsed {{ request()->routeIs('admin.categories.*') ? '' : 'collapsed' }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseDanhMuc">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Quản lý danh mục
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('admin.categories.*') ? 'show' : '' }}" id="collapseDanhMuc" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ request()->routeIs('admin.categories.index') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">Danh sách danh mục</a>
+                                <a class="nav-link {{ request()->routeIs('admin.categories.create') ? 'active' : '' }}" href="{{ route('admin.categories.create') }}">Thêm danh mục</a>
+                            </nav>
+                        </div>
+
+                        <!-- Quản lý sản phẩm -->
+                        <a class="nav-link collapsed {{ request()->routeIs('admin.products.*') ? '' : 'collapsed' }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSanPham">
+                            <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                            Quản lý sản phẩm
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('admin.products.*') ? 'show' : '' }}" id="collapseSanPham" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ request()->routeIs('admin.products.index') ? 'active' : '' }}" href="{{ route('admin.products.index') }}">Danh sách sản phẩm</a>
+                                <a class="nav-link {{ request()->routeIs('admin.products.create') ? 'active' : '' }}" href="{{ route('admin.products.create') }}">Thêm sản phẩm</a>
+                            </nav>
+                        </div>
+
+                        <!-- Quản lý thương hiệu -->
+                        <a class="nav-link collapsed {{ request()->routeIs('admin.brands.*') ? '' : 'collapsed' }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseThuongHieu">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tags"></i></div>
+                            Quản lý thương hiệu
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('admin.brands.*') ? 'show' : '' }}" id="collapseThuongHieu" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ request()->routeIs('admin.brands.index') ? 'active' : '' }}" href="{{ route('admin.brands.index') }}">Danh sách thương hiệu</a>
+                                <a class="nav-link {{ request()->routeIs('admin.brands.create') ? 'active' : '' }}" href="{{ route('admin.brands.create') }}">Thêm thương hiệu</a>
+                            </nav>
+                        </div>
+
+                        <!-- Quản lý người dùng -->
+                        <a class="nav-link collapsed {{ request()->routeIs('admin.customers.*') ? '' : 'collapsed' }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseNguoiDung">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Quản lý khách hàng
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('admin.customers.*') ? 'show' : '' }}" id="collapseNguoiDung" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ request()->routeIs('admin.customers.index') ? 'active' : '' }}" href="{{ route('admin.customers.index') }}">Danh sách khách hàng</a>
+                            </nav>
+                        </div>
+
+                        <!-- Quản lý đơn hàng -->
+                        <a class="nav-link collapsed {{ request()->routeIs('admin.orders.*') ? '' : 'collapsed' }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseDonHang">
+                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
+                            Quản lý đơn hàng
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('admin.orders.*') ? 'show' : '' }}" id="collapseDonHang" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ request()->routeIs('admin.orders.list') ? 'active' : '' }}" href="{{ route('admin.orders.list') }}">Danh sách đơn hàng</a>
+                            </nav>
+                        </div>
+
+                        <!-- Quản lý mã giảm giá -->
+                        <a class="nav-link collapsed {{ request()->routeIs('admin.coupons.*') ? '' : 'collapsed' }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMaGiamGia">
+                            <div class="sb-nav-link-icon"><i class="fas fa-ticket-alt"></i></div>
+                            Mã giảm giá
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('admin.coupons.*') ? 'show' : '' }}" id="collapseMaGiamGia" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ request()->routeIs('admin.coupons.index') ? 'active' : '' }}" href="{{ route('admin.coupons.index') }}">Danh sách mã giảm giá</a>
+                                <a class="nav-link {{ request()->routeIs('admin.coupons.create') ? 'active' : '' }}" href="{{ route('admin.coupons.create') }}">Thêm mã giảm giá</a>
+                            </nav>
+                        </div>
+
+                        <!-- Thống kê -->
+                        <a class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}" href="{{ route('admin.reports.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                            Báo cáo & Thống kê
+                        </a>
+
+                        <!-- Cài đặt -->
+                        <a class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}" href="{{ route('admin.settings.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
+                            Cài đặt website
+                        </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Đăng nhập với quyền:</div>
+                    {{ ucfirst(Auth::user()->role ?? 'Administrator') }}
+                </div>
             </nav>
         </div>
 
-        <!-- Main content -->
-        <div class="d-flex flex-column flex-grow-1">
-            <!-- Top navbar -->
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+        <!-- Nội dung chính -->
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <!-- Flash Messages -->
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
 
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                    <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                            <i class="bi bi-person"></i> Hồ sơ
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('profile.password') }}">
-                                            <i class="bi bi-key"></i> Đổi mật khẩu
-                                        </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <form action="{{ route('logout') }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="dropdown-item text-danger">
-                                                <i class="bi bi-box-arrow-right"></i> Đăng xuất
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>{{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    @yield('content')
                 </div>
-            </nav>
-
-            <!-- Page content -->
-            <main class="content">
-                @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                @endif
-
-                @if(session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                @endif
-
-                @yield('content')
             </main>
         </div>
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    @yield('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('themes/admin/js/scripts.js') }}"></script>
+    <!-- Chart.js phiên bản mới -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"></script>
+    @stack('scripts')
 </body>
-</html>
+</html> 

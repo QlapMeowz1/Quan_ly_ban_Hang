@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3">Quản lý thương hiệu</h1>
         <a href="{{ route('admin.brands.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-lg"></i> Thêm thương hiệu
+            <i class="fas fa-plus"></i> Thêm thương hiệu
         </a>
     </div>
 
@@ -49,11 +49,11 @@
                                 <div class="btn-group">
                                     <a href="{{ route('admin.brands.edit', $brand->brand_id) }}" 
                                        class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="{{ route('admin.brands.show', $brand->brand_id) }}" 
                                        class="btn btn-sm btn-outline-info">
-                                        <i class="bi bi-eye"></i>
+                                        <i class="fas fa-eye"></i>
                                     </a>
                                     <form action="{{ route('admin.brands.destroy', $brand->brand_id) }}" 
                                           method="POST" 
@@ -62,7 +62,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
                                 </div>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">
@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-auto">
                     <a href="{{ route('admin.admins.create') }}" class="btn btn-primary">
-                        <i class="bi bi-plus"></i> Thêm Admin
+                        <i class="fas fa-plus"></i> Thêm Admin
                     </a>
                 </div>
             </div>
@@ -46,11 +46,11 @@
                                 <div class="d-flex gap-2">
                                     <a href="{{ route('admin.admins.show', $admin->id) }}" 
                                        class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-eye"></i> Chi tiết
+                                        <i class="fas fa-eye"></i> Chi tiết
                                     </a>
                                     <a href="{{ route('admin.admins.edit', $admin->id) }}" 
                                        class="btn btn-sm btn-outline-warning">
-                                        <i class="bi bi-pencil"></i> Sửa
+                                        <i class="fas fa-edit"></i> Sửa
                                     </a>
                                     @if(auth()->id() !== $admin->id)
                                     <form action="{{ route('admin.admins.destroy', $admin->id) }}" 
@@ -61,7 +61,7 @@
                                         @method('DELETE')
                                         <button type="submit" 
                                                 class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i> Xóa
+                                            <i class="fas fa-trash"></i> Xóa
                                         </button>
                                     </form>
                                     @endif
