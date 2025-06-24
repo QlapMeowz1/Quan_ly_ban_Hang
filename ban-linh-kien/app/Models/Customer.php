@@ -26,20 +26,20 @@ class Customer extends Model
     
     public function hasVerifiedEmail()
     {
-        return true; // Luôn trả về true - không cần xác thực email
+        return true;
     }
 
  
     public function markEmailAsVerified()
     {
         $this->update([
-            'email_verified' => true,
+            'email_verified' => 1,
         ]);
     }
 
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class);
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 
     public function orders()

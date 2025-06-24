@@ -28,9 +28,13 @@ use App\Models\SpinHistory;
 |
 */
 
-// Public routes
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
+// Chuyển hướng trang chủ về /home
+Route::get('/', function () {
+    return redirect('/home');
+})->name('welcome');
+
+// Trang home - không cần đăng nhập
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Product & Category routes for public
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
@@ -73,8 +77,9 @@ Route::post('/cart/remove', function (\Illuminate\Http\Request $request) {
     }
     return redirect()->route('cart.index')->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
 })->name('cart.remove');
-Auth::routes(['verify' => false]);
 
+// Authentication routes - không cần email verification
+Auth::routes(['verify' => false]);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -93,10 +98,9 @@ Route::middleware('auth')->group(function () {
         $products = \App\Models\Product::whereIn('product_id', array_keys($cart))->get();
         return view('checkout', compact('cart', 'products'));
     })->name('checkout.index');
-    Route::post('/checkout', [OrderController::class, 'store'])
-        ->middleware(['auth'])
-        ->name('checkout.store');
+    Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
 });
+
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
     Route::resource('customers', App\Http\Controllers\Admin\CustomerController::class);
@@ -115,6 +119,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
 });
+
 Route::post('/products/{product}/reviews', [ProductReviewController::class, 'store'])->name('products.reviews.store');
 
 // Quên mật khẩu

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Customer;
-
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -78,30 +77,9 @@ class RegisterController extends Controller
             'email' => $user->email,
             'password_hash' => $user->password,
             'status' => 'active',
-            'email_verified' => true, // Bỏ qua xác thực email
+            'email_verified' => 1, 
         ]);
-
-        event(new \Illuminate\Auth\Events\Registered($user));
         
         return $user;
-    }
-
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
-    public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
-
-        $user = $this->create($request->all());
-
-        // Auto-login after registration
-        $this->guard()->login($user);
-        
-        return redirect($this->redirectPath())
-            ->with('success', 'Đăng ký thành công! Chào mừng bạn đến với hệ thống.');
     }
 }
