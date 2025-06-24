@@ -15,6 +15,38 @@
        
             transition: background 0.3s, color 0.3s;
         }
+        
+        
+        #toggle-darkmode {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            border: none;
+            background: #4e54c8;
+            color: white;
+        }
+        
+        #toggle-darkmode:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+        
+        #toggle-darkmode span {
+            display: none;
+        }
+        
+        .dark-mode #toggle-darkmode {
+            background: #ffe066;
+            color: #232526;
+        }
+        
         .dark-mode {
             background: #18191a !important;
             color: #e4e6eb !important;
@@ -306,8 +338,9 @@
     </style>
 </head>
 <body>
-    <button id="toggle-darkmode" class="btn btn-secondary position-fixed top-0 end-0 m-3 z-3" style="z-index:9999;">
-        <i class="fa fa-moon"></i> <span>Dark Mode</span>
+    <button id="toggle-darkmode" class="position-fixed" style="top: 20px; right: 20px; z-index: 1000;" title="Chuyển đổi Dark Mode">
+        <i class="fa fa-moon"></i>
+        <span>Dark Mode</span>
     </button>
     <nav class="navbar navbar-expand-lg navbar-light bg-gradient border-bottom shadow-sm mb-4" style="background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);">
         <div class="container">
@@ -448,19 +481,19 @@
             if(on) {
                 document.body.classList.add('dark-mode');
                 btn.querySelector('i').className = 'fa fa-sun';
-                btn.querySelector('span').textContent = 'Light Mode';
+                btn.title = 'Chuyển sang Light Mode';
                 localStorage.setItem('darkmode', '1');
             } else {
                 document.body.classList.remove('dark-mode');
                 btn.querySelector('i').className = 'fa fa-moon';
-                btn.querySelector('span').textContent = 'Dark Mode';
+                btn.title = 'Chuyển sang Dark Mode';
                 localStorage.setItem('darkmode', '0');
             }
         }
         btn.addEventListener('click', function() {
             setDarkMode(!document.body.classList.contains('dark-mode'));
         });
-        // Khởi tạo theo localStorage hoặc hệ điều hành
+        
         if(localStorage.getItem('darkmode') === '1' || (localStorage.getItem('darkmode') === null && prefersDark)) {
             setDarkMode(true);
         }

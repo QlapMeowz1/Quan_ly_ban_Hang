@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // Bỏ middleware auth để cho phép truy cập mà không cần đăng nhập
     }
 
     /**
@@ -26,25 +26,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Lấy sản phẩm nổi bật
+       
         $featuredProducts = Product::where('featured', true)
             ->with(['category', 'images'])
             ->take(8)
             ->get();
 
-        // Lấy danh mục nổi bật
+        
         $categories = Category::withCount('products')
             ->having('products_count', '>', 0)
             ->take(6)
             ->get();
 
-        // Lấy sản phẩm mới nhất
+        
         $newProducts = Product::with(['category', 'images'])
             ->orderBy('created_at', 'desc')
             ->take(8)
             ->get();
 
-        // Lấy thương hiệu
+  
         $brands = Brand::take(8)->get();
 
         return view('home', compact(
