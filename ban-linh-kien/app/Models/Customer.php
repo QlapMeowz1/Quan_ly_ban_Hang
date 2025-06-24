@@ -15,11 +15,13 @@ class Customer extends Model
     protected $primaryKey = 'customer_id';
     protected $fillable = [
         'username', 'email', 'password_hash', 'first_name', 'last_name', 'phone',
-        'date_of_birth', 'gender', 'status', 'email_verified', 'user_id'
+        'date_of_birth', 'gender', 'status', 'email_verified', 'user_id',
+        'email_otp', 'email_otp_expires_at', 'phone_otp'
     ];
     protected $casts = [
         'email_verified' => 'boolean',
         'date_of_birth' => 'date',
+        'email_otp_expires_at' => 'datetime',
     ];
     public $timestamps = false;
 

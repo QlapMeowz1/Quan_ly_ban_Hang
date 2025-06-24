@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\EmailVerificationController;
 
 class RegisterController extends Controller
 {
@@ -30,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/email/verify';
 
     /**
      * Create a new controller instance.
@@ -69,16 +70,21 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => 'staff', // Đặt role mặc định là user, không phải admin
         ]);
         
-        // Tạo customer liên kết
+    
         $customer = Customer::create([
             'user_id' => $user->id,
             'email' => $user->email,
             'password_hash' => $user->password,
+            'first_name' => $data['name'],
             'status' => 'active',
-            'email_verified' => 1, 
+            'email_verified' => 0, //0 là chưa xác thực email, 1 là đã xác thực email
         ]);
+        
+        $emailVerificationController = app(EmailVerificationController::class);
+        $emailVerificationController->sendVerificationEmail($customer);
         
         return $user;
     }

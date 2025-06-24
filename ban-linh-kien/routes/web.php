@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\EmailVerificationController;
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
@@ -28,15 +29,13 @@ use App\Models\SpinHistory;
 |
 */
 
-// Chuyển hướng trang chủ về /home
+
 Route::get('/', function () {
     return redirect('/home');
 })->name('welcome');
 
-// Trang home - không cần đăng nhập
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-// Product & Category routes for public
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -78,10 +77,17 @@ Route::post('/cart/remove', function (\Illuminate\Http\Request $request) {
     return redirect()->route('cart.index')->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
 })->name('cart.remove');
 
-// Authentication routes - không cần email verification
+
 Auth::routes(['verify' => false]);
 
+// Email Verification Routes
 Route::middleware('auth')->group(function () {
+    Route::get('/email/verify', [EmailVerificationController::class, 'showVerificationForm'])->name('verification.form');
+    Route::post('/email/verify', [EmailVerificationController::class, 'verify'])->name('verification.verify');
+    Route::post('/email/resend', [EmailVerificationController::class, 'resend'])->name('verification.resend');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/password', [ProfileController::class, 'passwordForm'])->name('profile.password');
@@ -120,7 +126,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::post('settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
 });
 
-Route::post('/products/{product}/reviews', [ProductReviewController::class, 'store'])->name('products.reviews.store');
+Route::post('/products/{product}/reviews', [ProductReviewController::class, 'store'])->name('products.reviews.store')->middleware(['auth', 'verified']);
 
 // Quên mật khẩu
 Route::get('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgot-password');
