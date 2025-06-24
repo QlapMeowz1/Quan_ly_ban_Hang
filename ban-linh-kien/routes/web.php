@@ -10,7 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\EmailVerificationController;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProductReviewController;
@@ -73,13 +73,9 @@ Route::post('/cart/remove', function (\Illuminate\Http\Request $request) {
     }
     return redirect()->route('cart.index')->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
 })->name('cart.remove');
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => false]);
 
-// Email Verification Routes
-Route::get('/email/verify', [EmailVerificationController::class, 'show'])->name('email.verify.show');
-Route::post('/email/verify', [EmailVerificationController::class, 'verify'])->name('email.verify');
-Route::post('/email/send', [EmailVerificationController::class, 'send'])->name('email.send');
-Route::post('/email/resend', [EmailVerificationController::class, 'resend'])->name('email.resend');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');

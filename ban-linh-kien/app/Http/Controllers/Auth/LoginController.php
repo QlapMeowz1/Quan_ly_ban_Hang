@@ -50,17 +50,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        // Kiểm tra email verification cho customer
-        $customer = Customer::where('email', $user->email)->first();
-        
-        if ($customer && !$customer->hasVerifiedEmail()) {
-            // Logout user if email not verified
-            Auth::logout();
-            
-            return redirect()->route('email.verify.show', ['email' => $user->email])
-                ->with('warning', 'Tài khoản của bạn chưa được xác thực. Vui lòng kiểm tra email để xác thực tài khoản.');
-        }
-
+        // Đăng nhập thành công, không cần kiểm tra email verification
         return redirect()->intended($this->redirectPath());
     }
 }

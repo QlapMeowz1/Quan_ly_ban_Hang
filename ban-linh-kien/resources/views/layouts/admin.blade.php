@@ -33,13 +33,13 @@
                     <li><a class="dropdown-item" href="{{ route('home') }}">Xem trang chủ</a></li>
                     <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Cài đặt tài khoản</a></li>
                     <li><hr class="dropdown-divider" /></li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
                             <button type="submit" class="dropdown-item w-100 text-start">Đăng xuất</button>
-                        </form>
-                    </li>
-                </ul>
+                                    </form>
+                                </li>
+                            </ul>
             </li>
         </ul>
     </nav>
@@ -163,18 +163,18 @@
                         <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
                             <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
+                    </div>
+                @endif
 
                     @if (session('error'))
                         <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
                             <i class="fas fa-exclamation-circle me-2"></i>{{ session('error') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
+                    </div>
+                @endif
 
-                    @yield('content')
-                </div>
+                @yield('content')
+            </div>
             </main>
         </div>
     </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Customer;
-use App\Notifications\EmailVerificationOTP;
+
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -78,18 +78,8 @@ class RegisterController extends Controller
             'email' => $user->email,
             'password_hash' => $user->password,
             'status' => 'active',
-            'email_verified' => false, // Chưa xác thực email
+            'email_verified' => true, // Bỏ qua xác thực email
         ]);
-
-        // Generate và gửi OTP cho email verification
-        $otp = $customer->generateEmailOTP();
-        
-        try {
-            $customer->notify(new EmailVerificationOTP($otp));
-        } catch (\Exception $e) {
-            // Log error but don't stop registration process
-            \Log::error('Failed to send email verification OTP: ' . $e->getMessage());
-        }
 
         event(new \Illuminate\Auth\Events\Registered($user));
         
@@ -108,8 +98,10 @@ class RegisterController extends Controller
 
         $user = $this->create($request->all());
 
-        // Redirect to email verification instead of auto-login
-        return redirect()->route('email.verify.show', ['email' => $user->email])
-            ->with('success', 'Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản.');
+        // Auto-login after registration
+        $this->guard()->login($user);
+        
+        return redirect($this->redirectPath())
+            ->with('success', 'Đăng ký thành công! Chào mừng bạn đến với hệ thống.');
     }
 }
