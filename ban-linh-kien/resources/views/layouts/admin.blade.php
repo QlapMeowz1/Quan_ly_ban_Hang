@@ -216,9 +216,8 @@
             </ul>
         </nav>
 
-        <!-- Main Content -->
         <div class="main-content">
-            <!-- Top Navbar -->
+        
             <nav class="top-navbar">
                 <div class="d-flex justify-content-between align-items-center">
                     <ol class="breadcrumb">
