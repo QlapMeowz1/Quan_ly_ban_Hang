@@ -134,4 +134,18 @@ Route::post('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordControll
 
 // Đặt lại mật khẩu
 Route::get('reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update'); 
+Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update');
+
+// Checkout Routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout/success/{orderId}', [App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/cancel', [App\Http\Controllers\CheckoutController::class, 'cancel'])->name('checkout.cancel');
+    Route::get('/checkout/bank-transfer/{orderId}', [App\Http\Controllers\CheckoutController::class, 'bankTransfer'])->name('checkout.bank-transfer');
+    Route::get('/checkout/vnpay/{orderId}', [App\Http\Controllers\CheckoutController::class, 'vnpay'])->name('checkout.vnpay');
+});
+
+// VNPay Routes  
+Route::get('/vnpay/return', [App\Http\Controllers\CheckoutController::class, 'returnPayment'])->name('vnpay.return');
+Route::post('/vnpay/notify', [App\Http\Controllers\CheckoutController::class, 'ipnPayment'])->name('vnpay.notify'); 
